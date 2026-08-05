@@ -1,0 +1,43 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mixins]]
+config="minecart_train_speed.mixins.json"
+
+[[mods]]
+    modId="minecart_train_speed"
+    version="${file.jarVersion}"
+    displayName="Minecart Train Speed"
+    authors="erutobusiness"
+    description='''
+連結したトロッコの速度上限を、銅レールの設定（copper_speed）に合わせる。
+
+Modern Minecarts は CustomAbstractMinecartEntity.getMaxSpeedWithRail で
+「連結していたら 0.8 固定」と書いており、config を見ない。
+0.8 は copper_speed の既定値と同じなので、既定のままなら差は出ない。
+当部は幹線を 1.2（24 b/s）へ上げたため、連結した瞬間に 3 分の 1 遅くなっていた。
+
+上流へも報告する。取り込まれたら本MODは要らなくなる。
+'''
+
+[[dependencies.minecart_train_speed]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.minecart_train_speed]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.20.2)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.minecart_train_speed]]
+    modId="modernminecarts"
+    mandatory=true
+    versionRange="[1.2,)"
+    ordering="AFTER"
+    side="BOTH"

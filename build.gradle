@@ -1,0 +1,66 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.spongepowered:mixingradle:0.7.38'
+    }
+}
+
+plugins {
+    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
+}
+
+apply plugin: 'org.spongepowered.mixin'
+
+version = '1.0'
+group = 'net.erutobusiness'
+base { archivesName = 'minecart_train_speed' }
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'info'
+            mods { minecart_train_speed { source sourceSets.main } }
+        }
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'info'
+            mods { minecart_train_speed { source sourceSets.main } }
+        }
+    }
+}
+
+mixin {
+    add sourceSets.main, 'minecart_train_speed.refmap.json'
+    config 'minecart_train_speed.mixins.json'
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.3.0'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    // Modern Minecarts の ModernMinecartsConfig を呼ぶためのコンパイル用参照。
+    // 実行時は導入済みの本体を使う（同梱しない・fork でもない）。
+    compileOnly files('libs/modernminecarts.jar')
+}
+
+jar {
+    manifest {
+        attributes([
+            'Specification-Title'   : 'minecart_train_speed',
+            'Specification-Version' : '1',
+            'Implementation-Title'  : 'Minecart Train Speed',
+            'Implementation-Version': project.version,
+            'MixinConfigs'          : 'minecart_train_speed.mixins.json'
+        ])
+    }
+}

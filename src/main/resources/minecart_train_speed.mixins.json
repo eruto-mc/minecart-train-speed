@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.erutobusiness.minecarttrainspeed.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "minecart_train_speed.refmap.json",
+  "mixins": [
+    "CustomAbstractMinecartEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
