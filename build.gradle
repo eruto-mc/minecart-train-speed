@@ -45,12 +45,21 @@ mixin {
     config 'minecart_train_speed.mixins.json'
 }
 
+repositories {
+    // MOD の依存を取る maven。手元に jar を置かずに済ませるため（2026-08-07）
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content { includeGroup "maven.modrinth" }
+    }
+}
+
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.3.0'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     // Modern Minecarts の ModernMinecartsConfig を呼ぶためのコンパイル用参照。
     // 実行時は導入済みの本体を使う（同梱しない・fork でもない）。
-    compileOnly files('libs/modernminecarts.jar')
+    compileOnly "maven.modrinth:modern-minecarts:1.2.1_Forge_1.20-1.20.1"
 }
 
 jar {
