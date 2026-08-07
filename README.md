@@ -7,14 +7,10 @@ Minecraft 1.20.1 / Forge. Requires Modern Minecarts. MIT.
 
 ## The bug this works around
 
-`CustomAbstractMinecartEntity.getMaxSpeedWithRail` computes the per-rail speed limit, then
-overwrites it unconditionally when the cart is linked:
-
-```java
-float f = ((BaseRailBlock) state.getBlock()).getRailMaxSpeed(...);
-if (state.is(Blocks.POWERED_RAIL)) f = ModernMinecartsConfig.poweredRailSpeed();
-if (this.getLinkedParent() != null) f = 0.8f;   // ← never reads the config
-```
+`CustomAbstractMinecartEntity.getMaxSpeedWithRail` works out the speed limit for the rail under
+the cart, consulting the mod's own config for powered rails. It then reaches a branch for linked
+carts which — unlike every branch before it — assigns a **literal `0.8`** rather than reading the
+config. Confirmed by disassembling the method: the constant appears there exactly once.
 
 `0.8` happens to equal the default `copper_speed`, so **with default settings there is no visible
 difference**. If you raise `copper_speed`, every linked cart silently drops back to 0.8 — a train

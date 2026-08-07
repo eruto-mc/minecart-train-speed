@@ -9,12 +9,12 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 /**
  * 連結時に直書きされている {@code 0.8f} を、設定に追従する値へ差し替える。
  *
- * <p>元のコード（{@code getMaxSpeedWithRail} の抜粋）:
- * <pre>
- * float f = ((BaseRailBlock) state.getBlock()).getRailMaxSpeed(...);
- * if (state.is(Blocks.POWERED_RAIL)) f = ModernMinecartsConfig.poweredRailSpeed();
- * if (this.getLinkedParent() != null) f = 0.8f;   // ← ここ。config を見ていない
- * </pre>
+ * <p>{@code getMaxSpeedWithRail} は、レールごとの上限を求め、動力レールなら
+ * Modern Minecarts 自身の config を読んで上書きする。ところが<b>連結時の分岐だけ</b>は
+ * config を見ず、<b>定数 {@code 0.8f} を代入している</b>（逆アセンブルで確認）。
+ *
+ * <p>⚠ 上流は All Rights Reserved なので、ここにソースを写さない。
+ *    書いてよいのは「どういう振る舞いか」までで、実装そのものではない。
  *
  * <p>⚠ {@code 0.8f} はこのメソッドの中に<b>1回だけ</b>しか出てこないので、
  * {@code @ModifyConstant} が別の箇所を巻き込むことはない（逆アセンブルで数えて確認）。
