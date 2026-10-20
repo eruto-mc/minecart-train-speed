@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
  * Modern Minecarts 自身の config を読んで上書きする。ところが<b>連結時の分岐だけ</b>は
  * config を見ず、<b>定数 {@code 0.8f} を代入している</b>（逆アセンブルで確認）。
  *
- * <p>⚠ 上流は All Rights Reserved なので、ここにソースをコピーしない。
+ * <p>⚠ 作者は All Rights Reserved なので、ここにソースをコピーしない。
  *    書いてよいのは「どういう振る舞いか」までで、実装そのものではない。
  *
  * <p>⚠ {@code 0.8f} はこのメソッドの中に<b>1回だけ</b>しか出てこないので、

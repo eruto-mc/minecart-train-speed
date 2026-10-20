@@ -21,7 +21,7 @@ import net.minecraftforge.fml.config.ModConfig;
  * <p>⚠ {@code 0.8f} は {@code getMaxSpeedWithRail} の中に<b>ちょうど1回</b>しか出てこない
  * （逆アセンブルで確認）。だから {@code @ModifyConstant} が別の場所を巻き込むことはない。
  *
- * <p>上流にも報告する。取り込まれたら本MODは役目を終える。
+ * <p>作者にも報告する。取り込まれたら本MODは役目を終える。
  */
 @Mod(MinecartTrainSpeed.MOD_ID)
 public class MinecartTrainSpeed {
